@@ -13,6 +13,9 @@ import { SubscriptionProvider } from './src/context/SubscriptionContext';
 import { initializeStripe } from './src/services/stripeService';
 import { initDatabase } from './src/services/offlineStorage';
 
+// Tema y constantes
+import { COLORS } from './src/constants/theme';
+
 export default function App() {
   useEffect(() => {
     // Inicializar servicios
@@ -36,7 +39,7 @@ export default function App() {
   
   return (
     <SafeAreaProvider>
-      <StatusBar style="auto" />
+      <StatusBar style="light" backgroundColor={COLORS.primary} />
       <AuthProvider>
         <SubscriptionProvider>
           <RootNavigator />
