@@ -26,18 +26,35 @@ Aplicación multiplataforma para guías de escalada, desarrollada con React Nati
 - Stripe para gestión de pagos y suscripciones
 - SQLite para almacenamiento local (modo offline)
 
-## 💻 Desarrollo
+## 📥 Instalación
 
-Este proyecto está en fase de desarrollo inicial. A continuación se presenta la hoja de ruta:
+1. Clona este repositorio:
+   ```
+   git clone https://github.com/tu-usuario/climbing-guides-app.git
+   cd climbing-guides-app
+   ```
 
-1. Configuración del entorno de desarrollo
-2. Diseño de la interfaz de usuario y experiencia
-3. Implementación de características básicas
-4. Integración con Firebase
-5. Desarrollo del sistema de suscripciones con Stripe
-6. Implementación de funcionalidad offline
-7. Pruebas y optimización
-8. Despliegue en tiendas de aplicaciones
+2. Instala las dependencias:
+   ```
+   npm install
+   # o
+   yarn install
+   ```
+
+3. Configura el archivo `.env` con las variables de entorno necesarias (consulta `.env.example`)
+
+4. Inicia la aplicación:
+   ```
+   npm start
+   # o
+   yarn start
+   ```
+
+## 🚀 Ejecución
+
+- Para ejecutar en iOS: `npm run ios` o `yarn ios`
+- Para ejecutar en Android: `npm run android` o `yarn android`
+- Para ejecutar en web: `npm run web` o `yarn web`
 
 ## 📱 Plataformas Soportadas
 

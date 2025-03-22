@@ -1,0 +1,71 @@
+# OSX
+.DS_Store
+
+# Expo
+.expo/
+dist/
+web-build/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Ruby
+.direnv
+
+# Android/IntelliJ
+build/
+.idea
+.gradle
+local.properties
+*.iml
+*.hprof
+
+# iOS
+*.p8
+*.p12
+*.mobileprovision
+pods/
+Pods/
+
+# Environment
+.env
+.env.local
+.env.development
+.env.production
+
+# TypeScript
+*.tsbuildinfo
+
+# BUCK
+buck-out/
+\.buckd/
+*.keystore
+!debug.keystore
+
+# Build files
+*build/
+web-build/
+
+# fastlane
+*/fastlane/report.xml
+*/fastlane/Preview.html
+*/fastlane/screenshots
+
+# Bundle artifact
+*.jsbundle
+
+# CocoaPods
+/ios/Pods/
+
+# Testing
+coverage/
+
+# SQLite databases
+*.db
+*.db-shm
+*.db-wal
+
+# Temporary files
+.tmp/
