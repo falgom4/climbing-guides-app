@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ClimbGuide",
-    "slug": "climbing-guides-app",
+    "name": "Khamai",
+    "slug": "khamai-climbing-app",
     "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#2C5F2D"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -19,14 +19,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.climbguide.app"
+      "bundleIdentifier": "com.khamai.app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#2C5F2D"
       },
-      "package": "com.climbguide.app"
+      "package": "com.khamai.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -43,7 +43,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "climbing-guides-app"
+        "projectId": "khamai-climbing-app"
       }
     }
   }
