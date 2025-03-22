@@ -38,8 +38,7 @@
           "merchantIdentifier": "",
           "enableGooglePay": true
         }
-      ],
-      "expo-sqlite"
+      ]
     ],
     "extra": {
       "eas": {
