@@ -1,6 +1,10 @@
-# ClimbGuide - Aplicación de Guías de Escalada
+# Khamai - Aplicación de Guías de Escalada
 
 Aplicación multiplataforma para guías de escalada, desarrollada con React Native para dispositivos móviles (Android e iOS) y React para la versión web.
+
+## 🦎 Sobre Khamai
+
+Khamai es una aplicación de guías de escalada con una iguana como símbolo, representando agilidad, adaptabilidad y conexión con la naturaleza - cualidades esenciales para cualquier escalador.
 
 ## 🧗‍♀️ Características
 
@@ -30,8 +34,8 @@ Aplicación multiplataforma para guías de escalada, desarrollada con React Nati
 
 1. Clona este repositorio:
    ```
-   git clone https://github.com/tu-usuario/climbing-guides-app.git
-   cd climbing-guides-app
+   git clone https://github.com/tu-usuario/khamai-app.git
+   cd khamai-app
    ```
 
 2. Instala las dependencias:
