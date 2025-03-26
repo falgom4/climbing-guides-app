@@ -1,164 +1,136 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Define los tipos de datos para el contexto
 type User = {
   id: string;
-  name: string;
   email: string;
-  subscriptionType: 'free' | 'premium';
-  subscriptionEndDate?: string;
-  createdAt: string;
+  name?: string;
+  isPremium: boolean;
+  subscriptionType?: 'monthly' | 'yearly' | null;
+  subscriptionExpiryDate?: Date | null;
 } | null;
 
 type AuthContextType = {
   user: User;
   isLoading: boolean;
-  isLoggedIn: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
-  refreshUserData: () => Promise<void>;
-  error: string | null;
+  signIn: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string, name: string) => Promise<void>;
+  signOut: () => Promise<void>;
+  restoreSession: () => Promise<void>;
 };
 
-export const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+// Crear el contexto con un valor por defecto
+export const AuthContext = createContext<AuthContextType>({
+  user: null,
+  isLoading: false,
+  signIn: async () => {},
+  signUp: async () => {},
+  signOut: async () => {},
+  restoreSession: async () => {},
+});
 
+// Hook personalizado para usar el contexto
 export const useAuth = () => useContext(AuthContext);
 
+// Proveedor del contexto
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  
-  useEffect(() => {
-    // Verificar si hay un usuario almacenado en AsyncStorage al iniciar la app
-    const loadUser = async () => {
-      try {
-        setIsLoading(true);
-        const userData = await AsyncStorage.getItem('user');
-        const token = await AsyncStorage.getItem('token');
-        
-        if (userData && token) {
-          setUser(JSON.parse(userData));
-        }
-      } catch (error) {
-        console.error('Error loading user data:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    
-    loadUser();
-  }, []);
-  
-  const login = async (email: string, password: string) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  // Función para iniciar sesión
+  const signIn = async (email: string, password: string) => {
     try {
       setIsLoading(true);
-      setError(null);
-      
-      // Simulación de login - en la versión real, se conectaría a un servicio API
-      // const response = await authService.login({ email, password });
-      
-      // Simulación de respuesta de API
-      const mockResponse = {
-        token: 'mock-auth-token',
-        user: {
-          id: '123',
-          name: 'Usuario Prueba',
-          email: email,
-          subscriptionType: 'free',
-          createdAt: new Date().toISOString()
-        }
+      // Aquí irá la lógica real de autenticación con tu backend
+      // Por ahora, simulamos un inicio de sesión exitoso
+      const userData = {
+        id: '1',
+        email,
+        name: 'Usuario de Escalada',
+        isPremium: false,
       };
       
-      // Guardar el token en AsyncStorage
-      await AsyncStorage.setItem('token', mockResponse.token);
-      
-      // Guardar los datos del usuario
-      await AsyncStorage.setItem('user', JSON.stringify(mockResponse.user));
-      
-      setUser(mockResponse.user);
-    } catch (error: any) {
-      setError(error.message || 'Error al iniciar sesión');
+      // Guardar los datos del usuario en el almacenamiento local
+      await AsyncStorage.setItem('user', JSON.stringify(userData));
+      setUser(userData);
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
       throw error;
     } finally {
       setIsLoading(false);
     }
   };
-  
-  const register = async (name: string, email: string, password: string) => {
+
+  // Función para registrarse
+  const signUp = async (email: string, password: string, name: string) => {
     try {
       setIsLoading(true);
-      setError(null);
+      // Aquí irá la lógica real de registro con tu backend
+      // Por ahora, simulamos un registro exitoso
+      const userData = {
+        id: '1',
+        email,
+        name,
+        isPremium: false,
+      };
       
-      // Simulación de registro - en la versión real, se conectaría a un servicio API
-      // const response = await authService.register({ name, email, password });
-      
-      // Iniciar sesión automáticamente después del registro
-      await login(email, password);
-    } catch (error: any) {
-      setError(error.message || 'Error al registrar usuario');
+      // Guardar los datos del usuario en el almacenamiento local
+      await AsyncStorage.setItem('user', JSON.stringify(userData));
+      setUser(userData);
+    } catch (error) {
+      console.error('Error al registrarse:', error);
       throw error;
     } finally {
       setIsLoading(false);
     }
   };
-  
-  const logout = async () => {
+
+  // Función para cerrar sesión
+  const signOut = async () => {
     try {
       setIsLoading(true);
-      
-      // Llamar al servicio de logout (en implementación real)
-      // await authService.logout();
-      
-      // Limpiar datos de autenticación
-      await AsyncStorage.removeItem('token');
+      // Eliminar los datos del usuario del almacenamiento local
       await AsyncStorage.removeItem('user');
-      
       setUser(null);
     } catch (error) {
-      console.error('Error during logout:', error);
-      // Forzar el logout aunque falle la API
-      await AsyncStorage.removeItem('token');
-      await AsyncStorage.removeItem('user');
-      setUser(null);
+      console.error('Error al cerrar sesión:', error);
+      throw error;
     } finally {
       setIsLoading(false);
     }
   };
-  
-  const refreshUserData = async () => {
+
+  // Función para restaurar la sesión
+  const restoreSession = async () => {
     try {
       setIsLoading(true);
-      
-      // En una aplicación real, obtendríamos datos actualizados del usuario
+      // Obtener los datos del usuario del almacenamiento local
       const userData = await AsyncStorage.getItem('user');
       if (userData) {
         setUser(JSON.parse(userData));
       }
     } catch (error) {
-      console.error('Error refreshing user data:', error);
+      console.error('Error al restaurar la sesión:', error);
     } finally {
       setIsLoading(false);
     }
   };
-  
-  // Para propósitos de desarrollo, puedes descomentar esto para simular un inicio de sesión automático
-  // useEffect(() => {
-  //   login('user@example.com', 'password123');
-  // }, []);
-  
+
+  // Restaurar la sesión al cargar la aplicación
+  useEffect(() => {
+    restoreSession();
+  }, []);
+
   return (
-    <AuthContext.Provider 
-      value={{ 
-        user, 
-        isLoading, 
-        isLoggedIn: !!user, 
-        login, 
-        register, 
-        logout,
-        refreshUserData,
-        error
+    <AuthContext.Provider
+      value={{
+        user,
+        isLoading,
+        signIn,
+        signUp,
+        signOut,
+        restoreSession,
       }}
     >
       {children}
